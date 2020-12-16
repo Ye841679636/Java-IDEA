@@ -3,13 +3,17 @@
 
 package samples.testbed;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
+import com.alibaba.fastjson.JSON;
 import com.ib.client.*;
+import com.newpoint.util.InitData;
 
 //! [ewrapperimpl]
 public class EWrapperImpl implements EWrapper {
@@ -18,6 +22,7 @@ public class EWrapperImpl implements EWrapper {
 	//! [socket_declare]
 	private EReaderSignal readerSignal;
 	private EClientSocket clientSocket;
+
 	protected int currentOrderId = -1;
 	//! [socket_declare]
 	
@@ -228,7 +233,40 @@ public class EWrapperImpl implements EWrapper {
 	@Override
 	public void historicalData(int reqId, Bar bar) {
 		System.out.println("HistoricalData. "+reqId+" - Date: "+bar.time()+", Open: "+bar.open()+", High: "+bar.high()+", Low: "+bar.low()+", Close: "+bar.close()+", Volume: "+bar.volume()+", Count: "+bar.count()+", WAP: "+bar.wap());
+//		writeTxt(reqId, bar);
+		InitData.savaHistoricalData(reqId, bar);
 	}
+
+	List Barlist = new ArrayList();
+	public void writeTxt(int reqId, Bar bar) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("reqId",reqId);
+		map.put("time",bar.time());
+		map.put("open",bar.open());
+		map.put("high",bar.high());
+		map.put("low",bar.low());
+		map.put("close",bar.close());
+		map.put("volume",bar.volume());
+		map.put("count",bar.count());
+		map.put("wap",bar.wap());
+		Barlist.add(map);
+		try {
+			File jsonBar = new File("D:" + "\\jsonBar.txt");
+			if(!jsonBar.isFile()){
+				jsonBar.createNewFile();
+			}
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(jsonBar),"utf-8"));
+			for(int i=0; i<Barlist.size(); i++){
+				String jsonStr = JSON.toJSONString(Barlist.get(i));
+				bw.write(jsonStr+"\r\n");
+			}
+//			bw.write(JSON.toJSONString(Barlist));
+			bw.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	//! [historicaldata]
 	
 	//! [historicaldataend]

@@ -334,7 +334,14 @@ public class Testbed {
 				pad(gc2.get(Calendar.SECOND)) + " " +
 				gc2.getTimeZone().getDisplayName( false, TimeZone.SHORT);
 		//client.reqHistoricalData(4001, ContractSamples.STK(), formatted2, "1 M", "1 day", "TRADES", 0, 1, false, null);
-		client.reqHistoricalData(4002, ContractSamples.STK(), formatted2, "3 D", "1 hour", "TRADES", 1, 1, false, null);
+//		client.reqHistoricalData(4002, ContractSamples.STK(), formatted2, "3 D", "1 hour", "TRADES", 1, 1, false, null);
+//		client.reqHistoricalData(4002, ContractSamples.STK(), "20200701 10:00:00", "1 Y", "1 hour", "TRADES", 1, 1, false, null);
+		client.reqHistoricalData(4002, ContractSamples.STK(), "20200702 00:00:00", "1800 S", "1 secs", "TRADES", 1, 1, false, null);
+
+//		client.reqMktData(1001, ContractSamples.STK(), "", false, false, null);
+//		client.reqHistoricalTicks(18001, ContractSamples.STK(), "20200710 10:39:33", null, 10, "TRADES", 1, true, null);
+
+
 		Thread.sleep(2000);
 		/*** Canceling historical data requests ***/
 		//client.cancelHistoricalData(4001);

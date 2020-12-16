@@ -1,0 +1,32 @@
+package com.newpoint.account;
+
+public enum AccountAttribute {
+    NetLiquidation,
+    TotalCashValue,
+    SettledCash,
+    AccruedCash,
+    BuyingPower,
+    EquityWithLoanValue,
+    PreviousEquityWithLoanValue,
+    GrossPositionValue,
+    ReqTEquity,
+    ReqTMargin,
+    SMA,
+    InitMarginReq,
+    MaintMarginReq,
+    AvailableFunds,
+    ExcessLiquidity,
+    Cushion,
+    FullInitMarginReq,
+    FullMaintMarginReq,
+    FullAvailableFunds,
+    FullExcessLiquidity,
+    LookAheadNextChange,
+    LookAheadInitMarginReq,
+    LookAheadMaintMarginReq,
+    LookAheadAvailableFunds,
+    LookAheadExcessLiquidity,
+    HighestSeverity,
+    DayTradesRemaining,
+    Leverage
+}
